@@ -1,0 +1,240 @@
+/* Copied and adapted from original Form.html styles */
+:root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --primary: #38bdf8;
+    --secondary: #818cf8;
+    --text-main: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+    --success: #22c55e;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #__next { height: 100%; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Outfit', sans-serif;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(129, 140, 248, 0.1) 0%, transparent 40%);
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border);
+    overflow: visible;
+    position: relative;
+}
+
+/* Utility & small helpers */
+.sr-only { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
+.field-row { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
+.helper-text { color: var(--text-muted); font-size: 13px; margin-top: 6px; }
+.required-indicator { color: #fb7185; margin-left: 6px; font-weight: 600; }
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.header { padding: 40px 30px 20px; text-align: center; }
+.logo-icon { font-size: 40px; color: var(--primary); margin-bottom: 15px; display: inline-block; }
+
+h1 { font-size: 28px; font-weight: 700; margin-bottom: 10px; background: linear-gradient(to right, #fff, #cbd5e1); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.subtitle { color: var(--text-muted); font-size: 16px; }
+
+form { padding: 30px; }
+.form-group { margin-bottom: 25px; }
+label { display: block; margin-bottom: 10px; font-weight: 500; color: var(--text-main); font-size: 15px; }
+label i { color: var(--primary); margin-right: 8px; width: 20px; text-align: center; }
+
+input[type="text"], input[type="email"], textarea, select {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: #fff;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+select { color: #fff; background-color: #000; }
+/* placeholder option (first disabled option) should look muted */
+select option[disabled] { color: var(--text-muted); }
+
+/* Make dropdown menu (open list) dark on most browsers. Note: native option styling is limited in some browsers. */
+select, select option {
+    background-color: #000; /* dark background for closed select and options */
+    color: #fff;            /* white text for contrast */
+}
+
+/* Remove native arrow on WebKit to allow consistent background; keep a custom arrow using background-image if desired */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, #fff 50%), linear-gradient(135deg, #fff 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
+
+/* For IE/Edge legacy, keep the expand arrow visible but ensure dark bg */
+select::-ms-expand { display: block; }
+
+input:focus, select:focus, textarea:focus { border-color: var(--primary); background: rgba(56, 189, 248, 0.05); box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1); }
+
+/* make focus visible for keyboard users */
+input:focus-visible, select:focus-visible, textarea:focus-visible, .radio-card input:focus-visible + label {
+    outline: 3px solid rgba(56, 189, 248, 0.12);
+    outline-offset: 2px;
+}
+
+.radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.radio-card label { display: flex; align-items: center; justify-content: center; padding: 12px; background: rgba(0, 0, 0, 0.2); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 0; text-align: center; font-weight: 400; }
+.radio-card input { position: absolute; opacity: 0; cursor: pointer; }
+.radio-card input:checked + label { background: var(--primary); color: #0f172a; border-color: var(--primary); font-weight: 600; }
+/* when radio input has focus, highlight label */
+.radio-card input:focus + label { box-shadow: 0 6px 18px rgba(56, 189, 248, 0.08); border-color: var(--primary); }
+
+.submit-btn { width: 100%; padding: 16px; background: linear-gradient(90deg, var(--primary), var(--secondary)); color: #fff; border: none; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; margin-top: 10px; }
+
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; visibility: hidden; transition: all 0.3s ease; }
+.modal-overlay.active { opacity: 1; visibility: visible; }
+
+.modal { background: var(--card-bg); padding: 40px; border-radius: 24px; text-align: center; max-width: 400px; border: 1px solid var(--border); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.modal-overlay.active .modal { transform: scale(1); }
+
+.success-icon { width: 80px; height: 80px; background: rgba(34, 197, 94, 0.1); color: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; margin: 0 auto 20px; }
+
+/* Animated checkmark for post-submit success */
+.success-animation { width: 120px; height: 120px; margin: 0 auto 18px; }
+.checkmark { width: 120px; height: 120px; display: block; stroke-width: 2; stroke: var(--success); stroke-miterlimit: 10; box-sizing: content-box; }
+.checkmark__circle { stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 2; stroke: var(--success); animation: stroke 0.6s ease-out forwards; }
+.checkmark__check { transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48; stroke-width: 3; stroke-linecap: round; stroke: var(--success); animation: stroke 0.4s 0.6s ease-out forwards; }
+
+@keyframes stroke {
+    to { stroke-dashoffset: 0; }
+}
+
+/* subtle scale in for modal content */
+.modal-overlay.active .modal { transform: scale(1); }
+
+
+/* small responsive tweaks */
+@media (max-width: 480px) {
+    .header { padding: 30px 20px 10px; }
+    form { padding: 20px; }
+    .field-row { grid-template-columns: 1fr; }
+}
+
+/* Table styles for read-only listing */
+.table-wrap { overflow-x: auto; }
+.responses-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 10px; }
+.responses-table thead th { text-align: left; padding: 10px 12px; background: rgba(255,255,255,0.03); color: var(--text-main); font-weight: 600; position: sticky; top: 0; }
+.responses-table tbody td { padding: 10px 12px; border-top: 1px solid rgba(255,255,255,0.03); color: var(--text-main); }
+.responses-table tr:nth-child(even) td { background: rgba(255,255,255,0.01); }
+.responses-table td { vertical-align: middle; }
+.responses-table th:first-child, .responses-table td:first-child { width: 170px; }
+.responses-table th:last-child, .responses-table td:last-child { width: 120px; text-align: center; }
+
+@media (max-width: 720px) {
+    .responses-table thead th { font-size: 13px; }
+    .responses-table td { font-size: 13px; }
+}
+
+/* download button used on /table */
+.download-btn {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.download-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(56,189,248,0.08); }
+
+/* charts grid */
+.charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.chart-card { display: flex; flex-direction: column; background: rgba(255,255,255,0.02); padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); }
+.chart-card h3 { margin: 0 0 8px; font-size: 15px; color: var(--text-main); }
+.chart-card .chart-canvas { width: 100% !important; height: 220px !important; }
+
+@media (max-width: 900px) {
+    .chart-card .chart-canvas { height: 200px !important; }
+}
+
+@media (max-width: 480px) {
+    .chart-card .chart-canvas { height: 160px !important; }
+}
+
+/* action button for per-row operations */
+.action-btn {
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    white-space: nowrap;
+}
+.action-btn[disabled] { opacity: 0.6; cursor: default; }
+
+/* danger / delete button */
+.danger-btn {
+    background: linear-gradient(90deg, #ef4444, #f97316);
+    color: #fff;
+    border: none;
+    padding: 6px 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13px;
+}
+.danger-btn[disabled] { opacity: 0.6; cursor: default; }
+
+/* Responsive stacked card view for table on small screens */
+.table-cards { display: none; gap: 12px; }
+.table-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); padding: 12px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px; }
+.table-card .pair { display: flex; gap: 8px; }
+.table-card .label { width: 38%; color: var(--text-muted); font-weight: 700; font-size: 13px; }
+.table-card .value { flex: 1; color: var(--text-main); font-size: 14px; word-break: break-word; }
+.table-card .actions { display: flex; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+
+/* On narrow screens hide the wide table and show stacked cards */
+@media (max-width: 720px) {
+    .responses-table { display: none; }
+    .table-cards { display: flex; flex-direction: column; }
+    .table-wrap { overflow: visible; }
+    .download-btn { width: 100%; }
+    .action-btn, .danger-btn { padding: 10px 12px; flex: 1; }
+}
+
+/* On larger screens hide the card view */
+@media (min-width: 721px) {
+    .table-cards { display: none; }
+}
